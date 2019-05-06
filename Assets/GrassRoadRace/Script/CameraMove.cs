@@ -1,65 +1,62 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class CameraMove : MonoBehaviour {
+public class CameraMove : MonoBehaviour
+{
 
-	public float moveSpeed;
-	public GameObject mainCamera;
+    public float moveSpeed;
+    public float rotateAmount;
+    public GameObject mainCamera;
 
-	// Use this for initialization
-	void Start () {
-		mainCamera.transform.localPosition = new Vector3 ( 0, 0, 0 );
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		
-	}
-
-	void FixedUpdate()
-	{
-		Moveplayer ();
-		
-		if (Input.GetKeyDown (KeyCode.A)) {
-			ChangeView01();
-		}
-		
-		if (Input.GetKeyDown (KeyCode.S)) {
-			ChangeView02();
-		}
-	}
-	
-	
-	void Moveplayer() {		
-		float moveAmount = Time.smoothDeltaTime * moveSpeed ;
-		transform.Translate (-moveAmount, 0f, 0f  );	
-	}
-    
-    void OnCollisionEnter (Collision collision)
+    // Use this for initialization
+    void Start()
     {
 
     }
 
+    // Update is called once per frame
+    void Update()
+    {
 
 
-	void ChangeView01() {
-		transform.position = new Vector3 (0, 2, 10);
-		// x:0, y:1, z:52
-		mainCamera.transform.localPosition = new Vector3 ( -8, 2, 0 );
-		mainCamera.transform.localRotation = Quaternion.Euler (14, 90, 0);
-	}
+    }
 
-	void ChangeView02() {
-		transform.position = new Vector3 (0, 2, 10);
-		// x:0, y:1, z:52
-		mainCamera.transform.localPosition = new Vector3 ( 0, 0, 0 );
-		mainCamera.transform.localRotation = Quaternion.Euler ( 19, 180, 0 );
-		moveSpeed = -20f;
-		
-	}
+    void FixedUpdate()
+    {
+        Moveplayer();
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            
+        }
+    }
+
+
+    void Moveplayer()
+    {
+        float moveAmount = Time.smoothDeltaTime * moveSpeed;
+        transform.Translate(-moveAmount, 0f, 0f);
+        transform.Rotate(0, rotateAmount, 0);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Finish":
+                transform.Rotate(0, 90, 0);
+                break;
+        }
+
+        }
+
 }
 
 

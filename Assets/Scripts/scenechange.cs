@@ -12,9 +12,16 @@ public class scenechange : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
 	}
-	void change ()
+
+	public void Scenechange ()
 	{
 		SceneManager.LoadScene(1);
 	}
+
+    public void exitapp()
+    {
+        Application.Quit();
+    }
 }
